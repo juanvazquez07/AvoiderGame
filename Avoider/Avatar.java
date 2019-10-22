@@ -21,7 +21,7 @@ public class Avatar extends Actor
      MouseInfo mi = Greenfoot.getMouseInfo();
      
      if(mi != null){
-       setLocation(mi.getX(),  );
+       setLocation(mi.getX(), mi.getY());
      }
     
     }
