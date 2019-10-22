@@ -15,13 +15,15 @@ public class Enemy extends Actor
     
     public void act() 
     {
-        setLocation(getX(), getY() + 1);
-        checkRemove();
+       setLocation(getX(), getY() + 1);
+       checkRemove();
+       
     } 
     
     private void checkRemove(){
      World w = getWorld();
-     if(getY() > w.getHeight() + 30)
-     w.removeObject(this);
+     if(getY() > w.getHeight() + 30){
+        w.removeObject(this);
+     }
     }
 }

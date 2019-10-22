@@ -16,7 +16,7 @@ public class AvoiderWorld extends World
     public AvoiderWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
+        super(600, 400, 1, false); 
         prepare();
     }
 
@@ -48,14 +48,22 @@ public class AvoiderWorld extends World
         addObject(enemy9,398,65);
         Enemy enemy10 = new Enemy();
         addObject(enemy10,289,71);
+        removeObject(enemy9);
+        removeObject(enemy8);
+        removeObject(enemy);
+        removeObject(enemy2);
+        removeObject(enemy10);
+        removeObject(enemy3);
+        removeObject(enemy4);
+        removeObject(enemy5);
+        removeObject(enemy6);
+        removeObject(enemy7);
     }
     
     public void act(){
       if(Greenfoot.getRandomNumber(100) < 2){
         Enemy e = new Enemy();
-        int x = 300;
-        int y = 0;
-        super.addObject(e, x, y);
+        addObject(e, Greenfoot.getRandomNumber(getWidth()-20)+10, -30);
       }
     }
 }
