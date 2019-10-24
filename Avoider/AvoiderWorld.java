@@ -8,7 +8,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class AvoiderWorld extends World
 {
-
+    private GreenfootSound bkgMusic;
+    private Counter scoreBoard;
+    private int enemySpawnRate;
+    private int enemySpeed;
+    private int nextLevel = 100;
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -17,7 +21,11 @@ public class AvoiderWorld extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1, false); 
+        
+        bkgMusic = new GreenfootSound("sounds/UFO_T-Balt.mp3");
+        bkgMusic.playLoop();
         prepare();
+        
     }
 
     /**
@@ -28,6 +36,8 @@ public class AvoiderWorld extends World
     {
         Avatar avatar = new Avatar();
         addObject(avatar,268,153);
+        scoreBoard = new Counter("Score: ");
+        addObject(scoreBoard, 70, 20);
         Enemy enemy = new Enemy();
         addObject(enemy,527,5);
         Enemy enemy2 = new Enemy();
@@ -61,9 +71,28 @@ public class AvoiderWorld extends World
     }
     
     public void act(){
-      if(Greenfoot.getRandomNumber(100) < 2){
+      if(Greenfoot.getRandomNumber(100) < enemySpawnRate){
         Enemy e = new Enemy();
+        e.setSpeed(enemySpeed);
         addObject(e, Greenfoot.getRandomNumber(getWidth()-20)+10, -30);
+        scoreBoard.setValue(scoreBoard.getValue() + 1);
+      }
+      increaseLevel();
+    }
+    
+    public void endGame()
+    {   
+        bkgMusic.stop();
+        AvoiderGameOverWorld go = new AvoiderGameOverWorld();
+        Greenfoot.setWorld(go);
+    }
+    
+    private void increaseLevel() {
+      int score = scoreBoard.getValue();
+      if( score > nextLevel ) {
+        enemySpawnRate += 2;
+        enemySpeed++;
+        nextLevel += 100;
       }
     }
 }

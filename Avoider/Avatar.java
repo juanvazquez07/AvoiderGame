@@ -15,7 +15,16 @@ public class Avatar extends Actor
     public void act() 
     {
         followMouse();
-    }    
+        checkForCollisions();
+    }  
+    
+    private void checkForCollisions() {
+        Actor enemy = getOneIntersectingObject(Enemy.class);
+        if( enemy != null ) {
+            AvoiderWorld world = (AvoiderWorld) getWorld();
+            world.endGame();
+        }  
+    }
     
     private void followMouse(){
      MouseInfo mi = Greenfoot.getMouseInfo();
